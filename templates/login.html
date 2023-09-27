@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
   <head>
     <title>APP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
         body {
           height: 100%;
           background-color: #2b3035;
+          color: #fff;
         }
 
         .form-signin {
@@ -18,61 +20,45 @@
         .form-signin .form-floating:focus-within {
           z-index: 2;
         }
-
-        .form-signin input[type="text"] {
-          margin-bottom: -1px;
-          border-bottom-right-radius: 0;
-          border-bottom-left-radius: 0;
-        }
-
-        .form-signin input[type="password"] {
-          margin-bottom: 10px;
-          border-top-left-radius: 0;
-          border-top-right-radius: 0;
-        }
-
-        .form-andy, .form-andy:focus{
-          background-color: #212529;
-          color: #dee2e6;
-        }
-
-        .letras-blancas{
-          color:dee2e6;
-        }
-
-        .form-control:focus{
-          border-color: #e85656;
-          box-shadow: none;
-        }
         
     </style>
 
   </head>
   <body class="d-flex align-items-center py-4">
-    <div class="form-signin w-100 m-auto">
-      <form action="" method="post">
-        <h1 class="h3 mb-3 fw-normal letras-blancas">Iniciar sesión</h1>
 
-        <div class="form-floating">
-        <input class="form-control form-andy" id="floatingInput" type="text" placeholder="Usuario" name="username" value="{{
-          request.form.username }}">
-        <label class="letras-blancas" for="floatingInput">Usuario</label>
+    <div class="form-signin w-100 m-auto">
+
+      <form action="" method="post">
+
+        <h1 class="h3 mb-3 fw-normal text-center">Iniciar sesión</h1>
+
+        {% for message in get_flashed_messages() %}
+          <p class="text-info text-center">{{ message }}</p>
+        {% endfor %}
+
+        {% if error %}
+          <p class="text-danger-emphasis text-center">{{ error }}</p>
+        {% endif %}
+
+        <div class="form-group">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="Usuario" name="usuario" value="{{
+              request.form.usuario}}">
+            <label for="floatingInput">Usuario</label>
+          </div>
+          <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Contraseña" autocomplete="off" name="contrasena" value="{{
+              request.form.contrasena}}">
+            <label for="floatingPassword">Contraseña</label>
+          </div>
         </div>
         
-        <div class="form-floating">
-        <input class="form-control form-andy" id="floatingPassword" type="password" placeholder="Contraseña" name="password" value="{{
-          request.form.password }}">
-        <label class="letras-blancas" for="floatingPassword">Contraseña</label>
-        </div>
+        <button type="submit" class="btn btn-primary mt-3">Ingresar</button>
 
-        <input class="btn btn-primary w-100 py-2" type="submit" value="Login">
       </form>
-      {% if error %}
-        <p class="letras-blancas"><strong>Error:</strong> {{ error }}</p>
-      {% endif %}
-      {% for message in get_flashed_messages() %}
-        <p class="letras-blancas">{{ message }}</p>
-      {% endfor %}
-    </div>      
+
+    </div>
+
   </body>
+  
 </html>

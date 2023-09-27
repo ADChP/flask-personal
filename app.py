@@ -1,10 +1,15 @@
-# import the Flask class from the flask module
+'''
+Aplicativo 'Maqueta'
+Hecho por Andrés David Chavarría-Palma
+2023
+'''
+
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 
 # create the application object
 app = Flask(__name__)
 
-# Ensure responses aren't cached
+# Evita que al darle al botón de regresar se vuelva a ver la sesión abierta.
 @app.after_request
 def after_request(response):
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
@@ -30,7 +35,7 @@ def login():
     else:
         error = None
         if request.method == 'POST':
-            if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+            if request.form['usuario'] != 'admin' or request.form['contrasena'] != 'admin':
                 error = 'Credenciales inválidas. Por favor intente de nuevo.'
             else:
                 session['logged_in'] = True
