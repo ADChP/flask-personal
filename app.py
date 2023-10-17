@@ -18,15 +18,6 @@ def after_request(response):
 # config
 app.secret_key = 'my precious'
 
-# use decorators to link the function to a url
-@app.route('/inicio')
-def inicio():
-    if 'logged_in' in session:
-        return render_template('index.html')  # render a template
-    else:
-        return redirect(url_for('login'))
-    # return "Hello, World!"  # return a string
-
 # route for handling the login page logic
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -42,6 +33,15 @@ def login():
                 flash('Haz iniciado sesión. ¡Bienvenido!')
                 return redirect(url_for('inicio'))
         return render_template('login.html', error=error)
+    
+# use decorators to link the function to a url
+@app.route('/inicio')
+def inicio():
+    if 'logged_in' in session:
+        return render_template('index.html')  # render a template
+    else:
+        return redirect(url_for('login'))
+    # return "Hello, World!"  # return a string
 
 @app.route('/logout')
 def logout():
